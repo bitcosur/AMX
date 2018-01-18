@@ -142,19 +142,19 @@ public:
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 100000;
 
-#if 1 
+#if 0 
         // create genesis block 
-        std::cout << "Calculating genesis block:" << std::endl; 
-        genesis = CreateGenesisBlock(1516241000, 0, 0x1e0ffff0, 1, 1 * COIN); // mainnet
-        //genesis = CreateGenesisBlock(1516231137, 0, 0x207fffff, 1, 1 * COIN); // testnet
+        std::cout << "Calculating genesis block" << std::endl; 
+        genesis = CreateGenesisBlock(1516241001, 0, 0x1e0ffff0, 1, 1 * COIN); // mainnet, testnet
+        //genesis = CreateGenesisBlock(1516241002, 0, 0x207fffff, 1, 1 * COIN); // regression
+        std::cout << "Merkle: " << genesis.hashMerkleRoot.ToString() << std::endl; 
         arith_uint256 hashTarget = arith_uint256().SetCompact(genesis.nBits); 
+        std::cout << "Hash target: "<< hashTarget.ToString() << std::endl << std::endl; 
         genesis.nNonce = 0; 
         arith_uint256 minHash = UintToArith256(genesis.GetHash()); 
         arith_uint256 hash = minHash; 
-        std::cout << "Hash target: "<< hashTarget.ToString() << std::endl << std::endl; 
         std::cout << "Hash:   " << hash.ToString() << std::endl; 
         std::cout << "Nonce:  " << genesis.nNonce << std::endl; 
-        std::cout << "Merkle: " << genesis.hashMerkleRoot.ToString() << std::endl << std::endl; 
         do { 
             ++genesis.nNonce; 
             if (genesis.nNonce == 0) { 
@@ -166,33 +166,32 @@ public:
               minHash = hash; 
               std::cout << "Hash:   " << hash.ToString() << std::endl; 
               std::cout << "Nonce:  " << genesis.nNonce << std::endl; 
-              std::cout << "Merkle: " << genesis.hashMerkleRoot.ToString() << std::endl << std::endl; 
             } 
         } while (hash > hashTarget); 
         std::cout << "done" << std::endl; 
         exit(0); 
 #endif 
 
-        genesis = CreateGenesisBlock(1390095618, 28917698, 0x1e0ffff0, 1, 1 * COIN);
+        genesis = CreateGenesisBlock(1516241000, 266287, 0x1e0ffff0, 1, 1 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x00000ffd590b1485b3caadc19b22e6379c733355108f107a430458cdf3407ab6"));
-        assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
+        assert(consensus.hashGenesisBlock == uint256S("0x0000071a1c6ad87afb3dd6f6f57ea233a22296e638a70dff45d1bde02c445516"));
+        assert(genesis.hashMerkleRoot == uint256S("0x5b5b31ffb9ce07446713694a385f5f15ec0ecd384408f5c17dfd32eb88231a6a"));
 
 
         vSeeds.push_back(CDNSSeedData("ameroplus.org", "dnsseed.ameroplus.org"));
 
-        // Dash addresses start with 'A'
+        // Amero addresses start with 'A'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,23);
-        // Dash script addresses start with '7'
+        // Amero script addresses start with '7'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,16);
-        // Dash private keys start with '7' or 'A'
+        // Amero private keys start with '7' or 'A'
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,151);
-        // Dash BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
+        // Amero BIP32 pubkeys start with 'xpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x88)(0xB2)(0x1E).convert_to_container<std::vector<unsigned char> >();
-        // Dash BIP32 prvkeys start with 'xprv' (Bitcoin defaults)
+        // Amero BIP32 prvkeys start with 'xprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x88)(0xAD)(0xE4).convert_to_container<std::vector<unsigned char> >();
 
-        // Dash BIP44 coin type is '5'
+        // Amero BIP44 coin type is '5'
         nExtCoinType = 5;
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_main, pnSeed6_main + ARRAYLEN(pnSeed6_main));
@@ -209,8 +208,8 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (  0, uint256S("0x000000aaf0300f59f49bc3e970bad15c11f961fe2347accffff19d96ec9778e3")),
-            1507424630, // * UNIX timestamp of last checkpoint block
+            (  0, uint256S("0x0000071a1c6ad87afb3dd6f6f57ea233a22296e638a70dff45d1bde02c445516")),
+            1516241000, // * UNIX timestamp of last checkpoint block
             0,          // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             5000        // * estimated number of transactions per day after checkpoint
@@ -286,27 +285,27 @@ public:
         nDelayGetHeadersTime = 0x7fffffff;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1390666206UL, 3861367235UL, 0x1e0ffff0, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1516241001UL, 333093UL, 0x1e0ffff0, 1, 1 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x00000bafbc94add76cb75e2ec92894837288a481e5c005f6563d91623bf8bc2c"));
-        assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
+        assert(consensus.hashGenesisBlock == uint256S("0x00000acfad42298bae13f073402890c5fcd650158f3318326b7e2b1e1a254ae3"));
+        assert(genesis.hashMerkleRoot == uint256S("0x5b5b31ffb9ce07446713694a385f5f15ec0ecd384408f5c17dfd32eb88231a6a"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
         vSeeds.push_back(CDNSSeedData("ameroplus.org",  "testnet-dnsseed.ameroplus.org"));
 
-        // Testnet Dash addresses start with 'y'
+        // Testnet Amero addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
-        // Testnet Dash script addresses start with '8' or '9'
+        // Testnet Amero script addresses start with '8' or '9'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
         // Testnet private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        // Testnet Dash BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
+        // Testnet Amero BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        // Testnet Dash BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
+        // Testnet Amero BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
 
-        // Testnet Dash BIP44 coin type is '1' (All coin's testnet default)
+        // Testnet Amero BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;
 
         vFixedSeeds = std::vector<SeedSpec6>(pnSeed6_test, pnSeed6_test + ARRAYLEN(pnSeed6_test));
@@ -323,8 +322,8 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (    0, uint256S("0x00000c26026d0815a7e2ce4fa270775f61403c040647ff2c3091f99e894a4618")),
-            1462856598, // * UNIX timestamp of last checkpoint block
+            (    0, uint256S("0x00000acfad42298bae13f073402890c5fcd650158f3318326b7e2b1e1a254ae3")),
+            1516241001, // * UNIX timestamp of last checkpoint block
             0,          // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             500         // * estimated number of transactions per day after checkpoint
@@ -361,8 +360,8 @@ public:
         consensus.BIP34Height = -1; // BIP34 has not necessarily activated on regtest
         consensus.BIP34Hash = uint256();
         consensus.powLimit = uint256S("7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-        consensus.nPowTargetTimespan = 24 * 60 * 60; // Dash: 1 day
-        consensus.nPowTargetSpacing = 2 * 60; // Dash: 2.5 minutes
+        consensus.nPowTargetTimespan = 24 * 60 * 60; // Amero: 1 day
+        consensus.nPowTargetSpacing = 2 * 60; // Amero: 2.5 minutes
         consensus.fPowAllowMinDifficultyBlocks = true;
         consensus.fPowNoRetargeting = true;
         consensus.nPowKGWHeight = 15200; // same as mainnet
@@ -394,10 +393,10 @@ public:
         nDefaultPort = 19994;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1417713337, 1096447, 0x207fffff, 1, 50 * COIN);
+        genesis = CreateGenesisBlock(1516241002, 2, 0x207fffff, 1, 1 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x000008ca1832a4baf228eb1553c03d3a2c8e02399550dd6ea8d65cec3ef23d2e"));
-        assert(genesis.hashMerkleRoot == uint256S("0xe0028eb9648db56b1ac77cf090b99048a8007e2bb64b68f092c03c7f56a662c7"));
+        assert(consensus.hashGenesisBlock == uint256S("0x092d48c506851cdc13573e7e0b19a4ebb19dc935eb0c5314d0837ff7ff4aa38c"));
+        assert(genesis.hashMerkleRoot == uint256S("0x5b5b31ffb9ce07446713694a385f5f15ec0ecd384408f5c17dfd32eb88231a6a"));
 
         vFixedSeeds.clear(); //! Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();  //! Regtest mode doesn't have any DNS seeds.
@@ -412,23 +411,23 @@ public:
 
         checkpointData = (CCheckpointData){
             boost::assign::map_list_of
-            ( 0, uint256S("0x000008ca1832a4baf228eb1553c03d3a2c8e02399550dd6ea8d65cec3ef23d2e")),
+            ( 0, uint256S("0x092d48c506851cdc13573e7e0b19a4ebb19dc935eb0c5314d0837ff7ff4aa38c")),
             0,
             0,
             0
         };
-        // Regtest Dash addresses start with 'y'
+        // Regtest Amero addresses start with 'y'
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,140);
-        // Regtest Dash script addresses start with '8' or '9'
+        // Regtest Amero script addresses start with '8' or '9'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,19);
         // Regtest private keys start with '9' or 'c' (Bitcoin defaults)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        // Regtest Dash BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
+        // Regtest Amero BIP32 pubkeys start with 'tpub' (Bitcoin defaults)
         base58Prefixes[EXT_PUBLIC_KEY] = boost::assign::list_of(0x04)(0x35)(0x87)(0xCF).convert_to_container<std::vector<unsigned char> >();
-        // Regtest Dash BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
+        // Regtest Amero BIP32 prvkeys start with 'tprv' (Bitcoin defaults)
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x35)(0x83)(0x94).convert_to_container<std::vector<unsigned char> >();
 
-        // Regtest Dash BIP44 coin type is '1' (All coin's testnet default)
+        // Regtest Amero BIP44 coin type is '1' (All coin's testnet default)
         nExtCoinType = 1;
    }
 };
