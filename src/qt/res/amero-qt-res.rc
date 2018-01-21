@@ -19,7 +19,7 @@ BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
             VALUE "CompanyName",        "Amero"
-            VALUE "FileDescription",    "Amero Core (GUI node for Dash)"
+            VALUE "FileDescription",    "Amero Core (GUI node for Amero)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
             VALUE "InternalName",       "amero-qt"
             VALUE "LegalCopyright",     COPYRIGHT_STR

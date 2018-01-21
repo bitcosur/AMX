@@ -1,15 +1,15 @@
 [Unit]
-Description=Dash's distributed currency daemon
+Description=Amero's distributed currency daemon
 After=network.target
 
 [Service]
-User=dashcore
-Group=dashcore
+User=amerocore
+Group=amerocore
 
 Type=forking
-PIDFile=/var/lib/dashd/dashd.pid
-ExecStart=/usr/bin/dashd -daemon -pid=/var/lib/dashd/dashd.pid \
--conf=/etc/dashcore/dash.conf -datadir=/var/lib/dashd -disablewallet
+PIDFile=/var/lib/amerod/amerod.pid
+ExecStart=/usr/bin/amerod -daemon -pid=/var/lib/amerod/amerod.pid \
+-conf=/etc/amerocore/amero.conf -datadir=/var/lib/amerod -disablewallet
 
 Restart=always
 PrivateTmp=true
