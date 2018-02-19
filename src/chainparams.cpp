@@ -17,9 +17,9 @@
 
 #include "chainparamsseeds.h"
 
-#if 1 
-#include "uint256.h" 
-#include "arith_uint256.h" 
+#if 1
+#include "uint256.h"
+#include "arith_uint256.h"
 #endif
 
 static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesisOutputScript, uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
@@ -125,7 +125,7 @@ public:
         consensus.nMinimumChainWork = uint256S("0x00"); // TODO: update
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x0000071a1c6ad87afb3dd6f6f57ea233a22296e638a70dff45d1bde02c445516"); // TODO: update
+        consensus.defaultAssumeValid = uint256S("00000d73c768fbfd9c19f6702722d427768cac34edf2bee488257a4ea568fbe9"); // TODO: update
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -142,39 +142,39 @@ public:
         nDelayGetHeadersTime = 24 * 60 * 60;
         nPruneAfterHeight = 100000;
 
-#if 0 
-        // create genesis block 
-        std::cout << "Calculating genesis block" << std::endl; 
-        genesis = CreateGenesisBlock(1516241001, 0, 0x1e0ffff0, 1, 1 * COIN); // mainnet, testnet
-        //genesis = CreateGenesisBlock(1516241002, 0, 0x207fffff, 1, 1 * COIN); // regression
-        std::cout << "Merkle: " << genesis.hashMerkleRoot.ToString() << std::endl; 
-        arith_uint256 hashTarget = arith_uint256().SetCompact(genesis.nBits); 
-        std::cout << "Hash target: "<< hashTarget.ToString() << std::endl << std::endl; 
-        genesis.nNonce = 0; 
-        arith_uint256 minHash = UintToArith256(genesis.GetHash()); 
-        arith_uint256 hash = minHash; 
-        std::cout << "Hash:   " << hash.ToString() << std::endl; 
-        std::cout << "Nonce:  " << genesis.nNonce << std::endl; 
-        do { 
-            ++genesis.nNonce; 
-            if (genesis.nNonce == 0) { 
-                std::cout << "Nonce wrapped, incrementing time"<< std::endl; 
-                ++genesis.nTime; 
-            } 
-            hash = UintToArith256(genesis.GetHash()); 
-            if (hash < minHash) { 
-              minHash = hash; 
-              std::cout << "Hash:   " << hash.ToString() << std::endl; 
-              std::cout << "Nonce:  " << genesis.nNonce << std::endl; 
-            } 
-        } while (hash > hashTarget); 
-        std::cout << "done" << std::endl; 
-        exit(0); 
-#endif 
+#if 0
+        // create genesis block
+        std::cout << "Calculating genesis block" << std::endl;
+        //genesis = CreateGenesisBlock(1519020001, 0, 0x1e0ffff0, 1, 1 * COIN); // mainnet, testnet
+        genesis = CreateGenesisBlock(1519020002, 0, 0x207fffff, 1, 1 * COIN); // regression
+        arith_uint256 hashTarget = arith_uint256().SetCompact(genesis.nBits);
+        genesis.nNonce = 0;
+        arith_uint256 minHash = UintToArith256(genesis.GetHash());
+        arith_uint256 hash = minHash;
+        std::cout << "Hash target: "<< hashTarget.ToString() << std::endl << std::endl;
+        std::cout << "Hash:   " << hash.ToString() << std::endl;
+        std::cout << "Nonce:  " << genesis.nNonce << std::endl;
+        std::cout << "Merkle: " << genesis.hashMerkleRoot.ToString() << std::endl;
+        do {
+            ++genesis.nNonce;
+            if (genesis.nNonce == 0) {
+                std::cout << "Nonce wrapped, incrementing time"<< std::endl;
+                ++genesis.nTime;
+            }
+            hash = UintToArith256(genesis.GetHash());
+            if (hash < minHash) {
+              minHash = hash;
+              std::cout << "Hash:   " << hash.ToString() << std::endl;
+              std::cout << "Nonce:  " << genesis.nNonce << std::endl;
+            }
+        } while (hash > hashTarget);
+        std::cout << "done" << std::endl;
+        exit(0);
+#endif
 
-        genesis = CreateGenesisBlock(1516241000, 266287, 0x1e0ffff0, 1, 1 * COIN);
+        genesis = CreateGenesisBlock(1519020000, 392091, 0x1e0ffff0, 1, 1 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x0000071a1c6ad87afb3dd6f6f57ea233a22296e638a70dff45d1bde02c445516"));
+        assert(consensus.hashGenesisBlock == uint256S("00000d73c768fbfd9c19f6702722d427768cac34edf2bee488257a4ea568fbe9"));
         assert(genesis.hashMerkleRoot == uint256S("0x5b5b31ffb9ce07446713694a385f5f15ec0ecd384408f5c17dfd32eb88231a6a"));
 
 
@@ -208,8 +208,8 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (  0, uint256S("0x0000071a1c6ad87afb3dd6f6f57ea233a22296e638a70dff45d1bde02c445516")),
-            1516241000, // * UNIX timestamp of last checkpoint block
+            (  0, uint256S("")),
+            0, // * UNIX timestamp of last checkpoint block
             0,          // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             5000        // * estimated number of transactions per day after checkpoint
@@ -273,7 +273,7 @@ public:
         consensus.nMinimumChainWork = uint256S("0x00"); // TODO: update
 
         // By default assume that the signatures in ancestors of this block are valid.
-        consensus.defaultAssumeValid = uint256S("0x00000acfad42298bae13f073402890c5fcd650158f3318326b7e2b1e1a254ae3");
+        consensus.defaultAssumeValid = uint256S("0x0000079408109507b21d0e3e53aed05a585a769a6251b015e4d1099ebf2711f3");
 
         pchMessageStart[0] = 0xc8;
         pchMessageStart[1] = 0xcb;
@@ -285,9 +285,9 @@ public:
         nDelayGetHeadersTime = 0x7fffffff;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1516241001UL, 333093UL, 0x1e0ffff0, 1, 1 * COIN);
+        genesis = CreateGenesisBlock(1519020001UL, 1122239UL, 0x1e0ffff0, 1, 1 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x00000acfad42298bae13f073402890c5fcd650158f3318326b7e2b1e1a254ae3"));
+        assert(consensus.hashGenesisBlock == uint256S("0x0000079408109507b21d0e3e53aed05a585a769a6251b015e4d1099ebf2711f3"));
         assert(genesis.hashMerkleRoot == uint256S("0x5b5b31ffb9ce07446713694a385f5f15ec0ecd384408f5c17dfd32eb88231a6a"));
 
         vFixedSeeds.clear();
@@ -322,8 +322,8 @@ public:
 
         checkpointData = (CCheckpointData) {
             boost::assign::map_list_of
-            (    0, uint256S("0x00000acfad42298bae13f073402890c5fcd650158f3318326b7e2b1e1a254ae3")),
-            1516241001, // * UNIX timestamp of last checkpoint block
+            (    0, uint256S("")),
+            0, // * UNIX timestamp of last checkpoint block
             0,          // * total number of transactions between genesis and last checkpoint
                         //   (the tx=... number in the SetBestChain debug.log lines)
             500         // * estimated number of transactions per day after checkpoint
@@ -393,9 +393,9 @@ public:
         nDefaultPort = 19994;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1516241002, 2, 0x207fffff, 1, 1 * COIN);
+        genesis = CreateGenesisBlock(1519020002, 0, 0x207fffff, 1, 1 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x092d48c506851cdc13573e7e0b19a4ebb19dc935eb0c5314d0837ff7ff4aa38c"));
+        assert(consensus.hashGenesisBlock == uint256S("0x42b894b933f7377b47f4d168638a342af37f03aed9a33d18ddb08537c4666a38"));
         assert(genesis.hashMerkleRoot == uint256S("0x5b5b31ffb9ce07446713694a385f5f15ec0ecd384408f5c17dfd32eb88231a6a"));
 
         vFixedSeeds.clear(); //! Regtest mode doesn't have any fixed seeds.
@@ -411,7 +411,7 @@ public:
 
         checkpointData = (CCheckpointData){
             boost::assign::map_list_of
-            ( 0, uint256S("0x092d48c506851cdc13573e7e0b19a4ebb19dc935eb0c5314d0837ff7ff4aa38c")),
+            ( 0, uint256S("")),
             0,
             0,
             0
